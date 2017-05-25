@@ -1,0 +1,17 @@
+{
+    "extends": ["eslint:recommended"],
+    "parserOptions": {
+        "ecmaVersion": 2017,
+        "sourceType": "module"
+    },
+    "env": {
+        "node": true,
+        "es6": true,
+        "mocha": true
+    },
+    "rules": {
+        "no-unused-vars": "warn",
+        "no-global-assign": "warn",
+        "no-console": "off"
+    }
+}
