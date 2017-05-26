@@ -41,13 +41,13 @@ SchoolController.getSchoolByCode = async(req, res, next) => {
 }
 
 /**
-* Returns information about a specific school according to it's name
+* Returns the list of schools containing a specific name
 */
-SchoolController.getSchoolByName = async(req, res, next) => {
+SchoolController.getSchoolsByName = async(req, res, next) => {
     try {
 
         var schoolName = req.params.name;
-        var school = await School.findOne({name: schoolName.trim().toUpperCase()});
+        var school = await School.find({name: {$regex : schoolName.trim().toUpperCase()}});
 
         if (school) {
             res.json(school);
@@ -92,7 +92,7 @@ SchoolController.getSchoolsByFilters = async(req, res, next) => {
         }
 
         if (!req.params.uf && req.params.municipality ) {
-            return res.send(400, 'Missing UF parameter');
+            return res.send(400, 'Missing uf parameter');
         }
 
         var paginationStart = pagination(req.params.page);
