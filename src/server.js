@@ -14,7 +14,7 @@ var server = restify.createServer();
 server.server.setTimeout(5000);
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.bodyParser({mapParams: true, mapFiles: false}));
-
+server.use(restify.queryParser());
 setupRoutes(server);
 
 server.listen(8080, function() {

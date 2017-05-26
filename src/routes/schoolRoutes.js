@@ -9,9 +9,6 @@ module.exports = (server) => {
 
     server.get('/school/code/:code', schoolController.getSchoolByCode);
     server.get('/school/name/:name', schoolController.getSchoolByName);
-    server.get('/schools/:page', schoolController.getSchools);
-    server.get('/schools/adm/:adm/:page', schoolController.getSchoolsByAdminDependency);
-    server.get('/schools/municipality/:municipality/:page', schoolController.getSchoolsByMunicipality);
-    server.get('/schools/uf/:uf/:page', schoolController.getSchoolsByUF);
+    server.get('/schools/:page', schoolController.getSchoolsByFilters);
 
 }
