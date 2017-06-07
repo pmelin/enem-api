@@ -133,9 +133,14 @@ Examples:
 
 `/schools/1?adm=PRI`
 
+Retrieves private schools.
+
+`/schools/1?adm=PUB`
+
+Retrieves public schools.
+
 `schools/1?uf=RO/`
 
-`/schools/1?adm=EST&uf=RO`
+`/schools/1?adm=PUB&uf=RO`
 
 `/schools/1?uf=RO&municipality=Ariquemes`
-

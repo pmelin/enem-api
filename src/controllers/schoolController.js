@@ -6,13 +6,6 @@ const PAGE_SIZE = 10;
 
 class SchoolController {}
 
-var adminList = {
-    "EST": "Estadual",
-    "MUN": "Municipal",
-    "FED": "Federal",
-    "PRI": "Privada"
-};
-
 function pagination(page) {
     return (page - 1) * PAGE_SIZE
 }
@@ -47,7 +40,11 @@ SchoolController.getSchoolsByName = async(req, res, next) => {
     try {
 
         var schoolName = req.params.name;
-        var school = await School.find({name: {$regex : schoolName.trim().toUpperCase()}});
+        var school = await School.find({
+            name: {
+                $regex: schoolName.trim().toUpperCase()
+            }
+        });
 
         if (school) {
             res.json(school);
@@ -67,17 +64,23 @@ SchoolController.getSchoolsByName = async(req, res, next) => {
 */
 SchoolController.getSchoolsByFilters = async(req, res, next) => {
     try {
+
         if (isNaN(req.params.page)) {
             return res.send(400, 'Invalid parameters');
         }
 
         var query = {}
+        var adm;
 
         if (req.params.adm) {
-            var adm = adminList[req.params.adm];
-
-            if (!adm) {
-                return res.send(400, 'Invalid administrative dependency');
+            if (req.params.adm == 'PUB') {
+                adm = {
+                    $ne: 'Privada'
+                }
+            } else if (req.params.adm == 'PRI') {
+                adm = 'Privada'
+            } else {
+                return res.send(400, 'Invalid adminDependency');
             }
 
             query['adminDependency'] = adm;
@@ -91,7 +94,7 @@ SchoolController.getSchoolsByFilters = async(req, res, next) => {
             }
         }
 
-        if (!req.params.uf && req.params.municipality ) {
+        if (!req.params.uf && req.params.municipality) {
             return res.send(400, 'Missing uf parameter');
         }
 
