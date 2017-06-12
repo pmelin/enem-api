@@ -1,6 +1,7 @@
 var restify = require('restify');
 var bunyan = require('bunyan');
-var setupRoutes = require('./routes/schoolRoutes');
+var setupSchoolsRoute = require('./routes/schoolRoutes');
+var setupStateRoute = require('./routes/stateRoutes');
 var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/schoolRanking');
@@ -15,7 +16,8 @@ server.server.setTimeout(5000);
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.bodyParser({mapParams: true, mapFiles: false}));
 server.use(restify.queryParser());
-setupRoutes(server);
+setupSchoolsRoute(server);
+setupStateRoute(server);
 
 server.listen(8080, function() {
   log.info('%s listening at %s', server.name, server.url);
