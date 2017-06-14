@@ -8,7 +8,6 @@ var schoolController = require('../controllers/schoolController')
 module.exports = (server) => {
 
     server.get('/school/code/:code', schoolController.getSchoolByCode);
-    server.get('/schools/name/:name', schoolController.getSchoolsByName);
     server.get('/schools/:page', schoolController.getSchoolsByFilters);
 
 }

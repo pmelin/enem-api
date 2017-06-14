@@ -34,33 +34,7 @@ SchoolController.getSchoolByCode = async(req, res, next) => {
 }
 
 /**
-* Returns the list of schools containing a specific name
-*/
-SchoolController.getSchoolsByName = async(req, res, next) => {
-    try {
-
-        var schoolName = req.params.name;
-        var school = await School.find({
-            name: {
-                $regex: schoolName.trim().toUpperCase()
-            }
-        });
-
-        if (school) {
-            res.json(school);
-        } else {
-            res.send(404, 'School not found');
-        }
-    } catch (err) {
-        res.send(500, 'Internal error');
-        log.error('Error retrieving school by name ${req.params.name}', {err: err});
-    } finally {
-        next();
-    }
-}
-
-/**
-* Returns the list of schools considering multiple filters.
+* Returns the list of schools considering multiple optional filters.
 */
 SchoolController.getSchoolsByFilters = async(req, res, next) => {
     try {
@@ -96,6 +70,12 @@ SchoolController.getSchoolsByFilters = async(req, res, next) => {
 
         if (!req.params.uf && req.params.municipality) {
             return res.send(400, 'Missing uf parameter');
+        }
+
+        if (req.params.name) {
+            query['name'] = {
+                $regex: req.params.name.trim().toUpperCase()
+            };
         }
 
         var paginationStart = pagination(req.params.page);

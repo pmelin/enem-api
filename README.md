@@ -25,57 +25,6 @@ Retrieves the details of a school by it's code. Ex: `school/code/11027290`
 }
 ```
 
-- GET /schools/name/{name}
-
-Retrieves all schools that contain a specific name. Ex: `/schools/name/CORALINA`
-
-```javascript
-[
-  {
-    "code": 11006773,
-    "name": "EEEFM CORA CORALINA",
-    "uf": "RO",
-    "municipality": "ARIQUEMES",
-    "adminDependency": "Estadual",
-    "participationRate": 54.74,
-    "permanenceRate": "De 60% a 80%",
-    "teacherTraining": 55.7,
-    "approvalRate": 54.5,
-    "disapprovalRate": 32.4,
-    "abandonmentRate": 13.1,
-    "average": 474.86400000000003
-  },
-  {
-    "code": 11026278,
-    "name": "EEEFM CORA CORALINA",
-    "uf": "RO",
-    "municipality": "CACOAL",
-    "adminDependency": "Estadual",
-    "participationRate": 85.34,
-    "permanenceRate": "De 60% a 80%",
-    "teacherTraining": 63,
-    "approvalRate": 82.3,
-    "disapprovalRate": 12.7,
-    "abandonmentRate": 5,
-    "average": 516.144
-  },
-  {
-    "code": 52033368,
-    "name": "COLEGIO ESTADUAL CORA CORALINA",
-    "uf": "GO",
-    "municipality": "GOIANIA",
-    "adminDependency": "Estadual",
-    "participationRate": 62.3,
-    "permanenceRate": "De 40% a 60%",
-    "teacherTraining": 70.5,
-    "approvalRate": 86.4,
-    "disapprovalRate": 9.6,
-    "abandonmentRate": 4,
-    "average": 492.73999999999995
-  }
-]
-```
-
 - GET /schools/{page}
 
 Retrieves all schools. All requests must inform a page. Ex: `/schools/1`
@@ -127,7 +76,7 @@ Retrieves all schools. All requests must inform a page. Ex: `/schools/1`
   ...
 ]
 ```
-Optional filters: search per admin dependency, unit federation or municipality.
+Optional filters: search per admin dependency, unit federation, municipality or name.
 
 Examples:
 
@@ -135,12 +84,14 @@ Examples:
 
 Retrieves private schools.
 
-`/schools/1?adm=PUB`
+`schools/1?uf=AC/`
 
-Retrieves public schools.
-
-`schools/1?uf=RO/`
-
-`/schools/1?adm=PUB&uf=RO`
+Retrieves all schools located at Acre state.
 
 `/schools/1?uf=RO&municipality=Ariquemes`
+
+Retrieves all schools located at Rondônia state and Ariquemes municipality.
+
+`/schools/1?adm=PRI&uf=RO&municipality=CACOAL&name=CORA`
+
+Retrieves all private schools located at Rondônia state and Cacoal municipality which contains the word Cora on its name.
