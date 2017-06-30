@@ -76,7 +76,7 @@ Retrieves all schools. All requests must inform a page. Ex: `/schools/1`
   ...
 ]
 ```
-Optional filters: search per admin dependency, unit federation, municipality or name.
+- Optional filters: search per admin dependency, unit federation, municipality or name.
 
 Examples:
 
@@ -95,3 +95,15 @@ Retrieves all schools located at Rondônia state and Ariquemes municipality.
 `/schools/1?adm=PRI&uf=RO&municipality=CACOAL&name=CORA`
 
 Retrieves all private schools located at Rondônia state and Cacoal municipality which contains the word Cora on its name.
+
+- Optional sort/order: Schools can be sort by its position, name, unit federation or average.
+
+Examples:
+
+`/schools/1?sortSchl=NAME&orderSchl=DESC`
+
+Retrieves all schools sorted by name in descending order.
+
+`/schools/5?sortSchl=UF&orderSchl=ASC`
+
+Retrieves all schools sorted by unit federation in ascending order. 
