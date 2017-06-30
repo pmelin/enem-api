@@ -45,6 +45,8 @@ SchoolController.getSchoolsByFilters = async(req, res, next) => {
 
         var query = {}
         var adm;
+        var sort;
+        var order;
 
         if (req.params.adm) {
             if (req.params.adm == 'PUB') {
@@ -78,13 +80,40 @@ SchoolController.getSchoolsByFilters = async(req, res, next) => {
             };
         }
 
+        switch (req.params.sortSchl) {
+            case 'NAME':
+                sort = 'name';
+                break;
+            case 'UF':
+                sort = 'uf';
+                break;
+            case 'AVERAGE':
+                sort = 'average';
+                break;
+            case 'POSITION':
+                sort = 'position';
+                break;
+            default:
+                sort = 'position';
+        }
+
+        if (req.params.orderSchl) {
+            if (req.params.orderSchl == 'ASC') {
+                order = 1;
+            } else {
+                order = -1;
+            }
+        } else {
+            order = 1;
+        }
+
         var paginationStart = pagination(req.params.page);
 
         var schools = await School.find(query, {}, {
             limit: PAGE_SIZE,
             skip: paginationStart,
             sort: {
-                'average': -1
+                [sort]: order
             }
         });
         res.json(schools);
